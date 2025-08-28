@@ -1,0 +1,153 @@
+<div class="client-create-container">
+    <div class="create-header">
+        <h2>
+            <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="header-icon"
+            >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            Создание нового клиента
+        </h2>
+        <p>Заполните информацию о клиенте</p>
+    </div>
+
+    <form class="client-form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-col">
+                <app-custom-input
+                    label="Имя клиента"
+                    placeholder="Введите имя клиента"
+                    formControlName="name"
+                    [required]="true"
+                    [maxLength]="100"
+                    [errorMessage]="getFieldError('name')"
+                ></app-custom-input>
+            </div>
+
+            <div class="form-col">
+                <app-custom-input
+                    label="Email"
+                    type="email"
+                    placeholder="client@example.com"
+                    helpText="Необязательное поле"
+                    formControlName="email"
+                    [maxLength]="150"
+                    [errorMessage]="getFieldError('email')"
+                ></app-custom-input>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-col">
+                <app-custom-input
+                    label="Телефон"
+                    type="tel"
+                    placeholder="+7 999 123 45 67"
+                    helpText="Необязательное поле"
+                    formControlName="phone"
+                    [maxLength]="20"
+                    [numericOnly]="true"
+                    [errorMessage]="getFieldError('phone')"
+                ></app-custom-input>
+            </div>
+
+            <div class="form-col">
+                <app-custom-input
+                    label="Компания"
+                    placeholder="Название компании"
+                    helpText="Необязательное поле"
+                    formControlName="company"
+                    [maxLength]="200"
+                    [errorMessage]="getFieldError('company')"
+                ></app-custom-input>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-col">
+                <app-custom-select
+                    label="Статус клиента"
+                    helpText="Выберите статус клиента"
+                    formControlName="status"
+                    [required]="true"
+                    [options]="statusOptions"
+                    [errorMessage]="getFieldError('status')"
+                ></app-custom-select>
+            </div>
+        </div>
+
+        @if (successMessage()) {
+            <div class="success-message">
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <polyline points="20,6 9,17 4,12" />
+                </svg>
+                <span>{{ successMessage() }}</span>
+            </div>
+        }
+
+        @if (errorMessage()) {
+            <div class="error-message global-error">
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                <span>{{ errorMessage() }}</span>
+            </div>
+        }
+
+        <div class="form-actions">
+            <button
+                type="button"
+                class="btn btn-secondary"
+                [disabled]="isLoading()"
+                (click)="onCancel()"
+            >
+                Отмена
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                [disabled]="isLoading()"
+                (click)="resetForm()"
+            >
+                Сбросить
+            </button>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                [class.loading]="isLoading()"
+                [disabled]="isLoading() || clientForm.invalid"
+            >
+                @if (!isLoading()) {
+                    <span>Создать клиента</span>
+                } @else {
+                    <span>Создание...</span>
+                }
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,140 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>Отправить Push-уведомление</h2>
+            <button class="close-button" [disabled]="isLoading()" (click)="onClose()">
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="selected-clients-info">
+                <h4>Получатели ({{ selectedClients().length }})</h4>
+                <div class="clients-list">
+                    @for (client of selectedClients(); track client.id; let last = $last) {
+                        <span class="client-name">
+                            {{ client.name }}
+                            @if (!last) {
+                                <span>,</span>
+                            }
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <form class="push-form" [formGroup]="pushForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="title" class="form-label">
+                        Заголовок уведомления
+                        <span class="char-counter">{{ getRemainingChars('title', 100) }}/100</span>
+                    </label>
+                    <input
+                        id="title"
+                        type="text"
+                        formControlName="title"
+                        placeholder="Введите заголовок уведомления"
+                        maxlength="100"
+                        class="form-input"
+                        [class.error]="isFieldInvalid('title')"
+                    />
+                    @if (getFieldError('title')) {
+                        <div class="error-message">
+                            {{ getFieldError('title') }}
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="message" class="form-label">
+                        Текст сообщения
+                        <span class="char-counter">
+                            {{ getRemainingChars('message', 500) }}/500
+                        </span>
+                    </label>
+                    <textarea
+                        id="message"
+                        formControlName="message"
+                        placeholder="Введите текст push-уведомления"
+                        rows="4"
+                        maxlength="500"
+                        class="form-textarea"
+                        [class.error]="isFieldInvalid('message')"
+                    ></textarea>
+                    @if (getFieldError('message')) {
+                        <div class="error-message">
+                            {{ getFieldError('message') }}
+                        </div>
+                    }
+                </div>
+
+                @if (successMessage()) {
+                    <div class="success-message">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20,6 9,17 4,12" />
+                        </svg>
+                        {{ successMessage() }}
+                    </div>
+                }
+
+                @if (errorMessage()) {
+                    <div class="error-message global-error">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                        {{ errorMessage() }}
+                    </div>
+                }
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-secondary"
+                [disabled]="isLoading()"
+                (click)="onClose()"
+            >
+                Отмена
+            </button>
+            <button
+                type="submit"
+                class="btn btn-primary"
+                [class.loading]="isLoading()"
+                [disabled]="isLoading() || pushForm.invalid"
+                (click)="onSubmit()"
+            >
+                @if (isLoading()) {
+                    <span>Отправить</span>
+                } @else {
+                    <span>Отправка...</span>
+                }
+            </button>
+        </div>
+    </div>
+</div>

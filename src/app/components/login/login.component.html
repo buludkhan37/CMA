@@ -1,0 +1,69 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Вход в систему</h1>
+            <p>Введите ваши учетные данные для входа</p>
+        </div>
+
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="login" class="form-label">Логин</label>
+                <input
+                    id="login"
+                    type="text"
+                    formControlName="login"
+                    placeholder="Введите логин"
+                    autocomplete="username"
+                    class="form-input"
+                    [class.error]="isFieldInvalid('login')"
+                />
+                @if (getFieldError('login')) {
+                    <div class="error-message">
+                        {{ getFieldError('login') }}
+                    </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Введите пароль"
+                    autocomplete="current-password"
+                    class="form-input"
+                    [class.error]="isFieldInvalid('password')"
+                />
+                @if (getFieldError('password')) {
+                    <div class="error-message">
+                        {{ getFieldError('password') }}
+                    </div>
+                }
+            </div>
+
+            @if (errorMessage()) {
+                <div class="error-message global-error">
+                    {{ errorMessage() }}
+                </div>
+            }
+
+            <button
+                type="submit"
+                class="btn-login"
+                [class.loading]="isLoading()"
+                [disabled]="isLoading()"
+            >
+                @if (!isLoading()) {
+                    <span>Войти</span>
+                } @else {
+                    <span>Вход...</span>
+                }
+            </button>
+        </form>
+
+        <div class="login-info">
+            <p>Для тестирования можно использовать любые логин и пароль</p>
+        </div>
+    </div>
+</div>

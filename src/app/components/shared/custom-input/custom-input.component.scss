@@ -1,0 +1,156 @@
+.custom-input-container {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    cursor: pointer;
+    position: relative;
+
+    &.required {
+        .required-indicator {
+            color: #e53e3e;
+            margin-left: 4px;
+        }
+    }
+
+    .char-counter {
+        color: #718096;
+        font-size: 12px;
+        font-weight: 400;
+        float: right;
+    }
+}
+
+.input-wrapper {
+    position: relative;
+
+    &.focused {
+        .input-border {
+            transform: scaleX(1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    }
+
+    &.error {
+        .input-field {
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+        }
+
+        .input-border {
+            background: #e53e3e;
+            transform: scaleX(1);
+        }
+    }
+}
+
+.input-field {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    color: #2d3748;
+    background: white;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+
+    &:focus {
+        outline: none;
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    &:disabled {
+        background: #f7fafc;
+        color: #a0aec0;
+        cursor: not-allowed;
+        border-color: #e2e8f0;
+    }
+
+    &::placeholder {
+        color: #a0aec0;
+        font-size: 15px;
+    }
+
+    // Remove autofill styling
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 1000px white inset;
+        -webkit-text-fill-color: #2d3748;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+}
+
+.input-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 0 0 8px 8px;
+}
+
+.input-footer {
+    min-height: 20px;
+    margin-top: 6px;
+
+    .error-message {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #e53e3e;
+        font-size: 12px;
+        font-weight: 500;
+        animation: slideDown 0.2s ease-out;
+
+        svg {
+            flex-shrink: 0;
+        }
+    }
+
+    .help-text {
+        color: #718096;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Modern focus ring for accessibility
+.input-field:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+    .input-field {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .input-label {
+        font-size: 13px;
+    }
+}

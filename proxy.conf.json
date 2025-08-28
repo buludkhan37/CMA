@@ -1,0 +1,19 @@
+{
+    "/api/*": {
+        "target": "https://api.teyca.ru",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+            "^/api": ""
+        },
+        "headers": {
+            "Origin": "https://api.teyca.ru",
+            "Referer": "https://api.teyca.ru",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        "timeout": 10000,
+        "followRedirects": false
+    }
+}

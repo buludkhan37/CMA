@@ -1,0 +1,60 @@
+<div class="custom-input-container">
+    @if (label()) {
+        <label class="input-label" [class.required]="required()" [for]="inputId">
+            {{ label() }}
+            @if (required()) {
+                <span class="required-indicator">*</span>
+            }
+            @if (getRemainingChars() !== null) {
+                <span class="char-counter">{{ getRemainingChars() }}/{{ maxLength() }}</span>
+            }
+        </label>
+    }
+
+    <div class="input-wrapper" [class.focused]="isFocused()" [class.error]="hasError()">
+        <input
+            autocomplete="off"
+            class="input-field"
+            [id]="inputId"
+            [type]="type()"
+            [value]="value()"
+            [placeholder]="placeholder()"
+            [disabled]="isDisabled()"
+            [attr.maxlength]="maxLength()"
+            [attr.minlength]="minLength()"
+            [pattern]="pattern()"
+            [required]="required()"
+            (input)="onInputChange($event)"
+            (keypress)="onKeyPress($event)"
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+        />
+
+        <div class="input-border"></div>
+    </div>
+
+    <div class="input-footer">
+        @if (hasError()) {
+            <div class="error-message">
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                {{ errorMessage() }}
+            </div>
+        }
+        @if (helpText() && !hasError()) {
+            <div class="help-text">
+                {{ helpText() }}
+            </div>
+        }
+    </div>
+</div>

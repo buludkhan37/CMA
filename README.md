@@ -1,27 +1,51 @@
-# App
+# Client Management Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+### A modern Angular 18 web application for managing clients with authentication
 
-## Development server
+## 🚀 Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 🔐 Authentication System
+- Secure login with JWT token management
+- Route protection with authentication guards
+- Session persistence across browser refreshes
+- Automatic logout and session cleanup
 
-## Code scaffolding
+### 👥 Client Management
+- **View Clients**: Paginated table with search and sorting
+- **Create Clients**: Form with validation for adding new clients
+- **Select Clients**: Individual and bulk selection with "Select All" functionality
+- **Phone Formatting**: Automatic phone number formatting (+7 XXX XXX XX XX)
+- **Status Management**: Active, Inactive, and Pending client statuses
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 🔔 Push Notifications
+- Send push notifications to selected clients
+- Character counting for title (100 chars) and message (500 chars)
+- Bulk messaging with recipient confirmation
 
-## Build
+### 🛠️ Technical Features
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![RxJS](https://img.shields.io/badge/rxjs-%23B7178C.svg?style=for-the-badge&logo=reactivex&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Running the Application
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Dev Server
+```bash
+npm start
+# or
+ng serve
+```
 
-## Running end-to-end tests
+### Prod Build
+```bash
+npm run build
+# or
+ng build --configuration production
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Unit Tests
+```bash
+npm test
+# or
+ng test
+```
